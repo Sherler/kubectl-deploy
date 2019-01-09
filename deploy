@@ -32,8 +32,9 @@ case $key in
 esac
 done
 
-mkdir ~/.kube
-cp $KUBE_FILE ~/.kube
+mkdir ~/.kube/
+echo "copy kube file $KUBE_FILE"
+cp $KUBE_FILE ~/.kube/config
 
 if [ "$ACTION" == "start" ];
 then
