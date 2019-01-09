@@ -35,6 +35,7 @@ done
 mkdir ~/.kube/
 echo "copy kube file $KUBE_FILE"
 cp $KUBE_FILE ~/.kube/config
+cat ~/.kube/config
 
 if [ "$ACTION" == "start" ];
 then
