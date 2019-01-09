@@ -9,6 +9,11 @@ case $key in
     shift # past argument
     shift # past value
     ;;
+    -k|--kube)
+    KUBE_FILE="$2"
+    shift # past argument
+    shift # past value
+    ;;
     -i|--image)
     IMAGE="$2"
     shift # past argument
@@ -26,6 +31,9 @@ case $key in
     ;;
 esac
 done
+
+mkdir ~/.kube
+cp $KUBE_FILE ~/.kube
 
 if [ "$ACTION" == "start" ];
 then
