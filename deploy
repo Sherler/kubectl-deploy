@@ -1,0 +1,48 @@
+#!/bin/sh
+
+while [[ $# -gt 0 ]]
+do
+key="$1"
+case $key in
+    -s|--stage)
+    STAGE="$2"
+    shift # past argument
+    shift # past value
+    ;;
+    -i|--image)
+    IMAGE="$2"
+    shift # past argument
+    shift # past value
+    ;;
+    -a|--action)
+    ACTION="$2"
+    shift # past argument
+    shift # past value
+    ;;
+    -f|--file)
+    CONFIGFILE="$2"
+    shift # past argument
+    shift # past value
+    ;;
+esac
+done
+
+if [ "$ACTION" == "start" ];
+then
+  kubectl apply -f - <<EOF
+$(python /bin/gen-k8s-file.py $CONFIGFILE -t ${STAGE}-svc)
+EOF
+  kubectl apply -f - <<EOF
+$(python /bin/gen-k8s-file.py $CONFIGFILE -t ${STAGE} -i ${IMAGE})
+EOF
+fi
+
+if [ "$ACTION" == "stop" ];
+then
+  kubectl delete -f - <<EOF
+$(python /bin/gen-k8s-file.py $CONFIGFILE -t ${STAGE}-svc)
+EOF
+  kubectl delete -f - <<EOF
+$(python /bin/gen-k8s-file.py $CONFIGFILE -t ${STAGE} -i ${IMAGE})
+EOF
+fi
