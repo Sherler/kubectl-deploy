@@ -9,11 +9,6 @@ case $key in
     shift # past argument
     shift # past value
     ;;
-    -k|--kube)
-    KUBE_FILE="$2"
-    shift # past argument
-    shift # past value
-    ;;
     -i|--image)
     IMAGE="$2"
     shift # past argument
@@ -32,14 +27,9 @@ case $key in
 esac
 done
 
-mkdir ~/.kube/
-echo "copy kube file $KUBE_FILE"
-cp $KUBE_FILE ~/.kube/config
-cat ~/.kube/config
-
 if [ "$ACTION" == "start" ];
 then
-  kubectl apply -f - <<EOF
+  kubectl  apply -f - <<EOF
 $(python /bin/gen-k8s-file.py $CONFIGFILE -t ${STAGE}-svc)
 EOF
   kubectl apply -f - <<EOF
