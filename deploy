@@ -24,25 +24,24 @@ case $key in
     shift # past argument
     shift # past value
     ;;
+    -p|--path)
+    SERVICE_PATH="$2"
+    shift
+    shift
+    ;;
 esac
 done
 
 if [ "$ACTION" == "start" ];
 then
-  kubectl  apply -f - <<EOF
-$(python /bin/gen-k8s-file.py $CONFIGFILE -t ${STAGE}-svc)
-EOF
   kubectl apply -f - <<EOF
-$(python /bin/gen-k8s-file.py $CONFIGFILE -t ${STAGE} -i ${IMAGE})
+$(python /bin/gen-k8s-file.py $CONFIGFILE -s ${STAGE} -i ${IMAGE} -p $SERVICE_PATH -dvnc)
 EOF
 fi
 
 if [ "$ACTION" == "stop" ];
 then
   kubectl delete -f - <<EOF
-$(python /bin/gen-k8s-file.py $CONFIGFILE -t ${STAGE}-svc)
-EOF
-  kubectl delete -f - <<EOF
-$(python /bin/gen-k8s-file.py $CONFIGFILE -t ${STAGE} -i ${IMAGE})
+$(python /bin/gen-k8s-file.py $CONFIGFILE -s ${STAGE} -i ${IMAGE} -p $SERVICE_PATH -dvnc )
 EOF
 fi
