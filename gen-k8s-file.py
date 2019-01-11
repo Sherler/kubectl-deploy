@@ -218,7 +218,7 @@ if __name__ == '__main__':
     
     parser.add_argument(
 	'-p','--path', 
-	nargs='?', type=int, 
+	nargs='?',  
 	help = 'the service route subpath ')
     
     parser.add_argument(
