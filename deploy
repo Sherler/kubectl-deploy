@@ -42,6 +42,6 @@ fi
 if [ "$ACTION" == "stop" ];
 then
   kubectl delete -f - <<EOF
-$(python /bin/gen-k8s-file.py $CONFIGFILE -s ${STAGE} -i ${IMAGE} -p $SERVICE_PATH -dvnc )
+$(python /bin/gen-k8s-file.py $CONFIGFILE -s ${STAGE} -i ${IMAGE} -p $SERVICE_PATH -dn )
 EOF
 fi
