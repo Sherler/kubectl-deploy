@@ -146,7 +146,7 @@ spec:
 def as_ingress(data, path, stage='test'):
     ingress = load(basic_ingress_str)#基本结构
 
-    ingress['metadata']['name'] = data['projectName']+'-'+stage+"-"+path+"-ingress"
+    ingress['metadata']['name'] = data['projectName']+'-'+stage+"-ingress"
     ingress['metadata']['namespace'] = namespace_by_stage(stage)
     ingress['metadata']['annotations']['nginx.ingress.kubernetes.io/app-root'] = '/'+path
             
