@@ -179,7 +179,7 @@ def as_service(data, stage='test'):
         if data[stage].get('namespace',None) is not None:
             service['metadata']['namespace'] = data[stage]['namespace']
         if data[stage].get('nodePort',None) is not None:
-            service['spec']['ports'][0]['type'] = 'NodePort'
+            service['spec']['type'] = 'NodePort'
             service['spec']['ports'][0]['nodePort'] = data[stage]['nodePort']
     
     if stage != 'production':
