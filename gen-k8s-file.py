@@ -130,6 +130,7 @@ kind: Ingress
 metadata:
   name: unknown
   annotations:
+    kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/app-root: /unknown
 spec:
