@@ -150,14 +150,14 @@ spec:
         backend:
           serviceName: unknown
           servicePort: unknown
-  - host: rsync.common02.alps.sjs.ted
+  - host: rsync.common03.alps.tc.ted
     http:
       paths:
       - path: /unknown
         backend:
           serviceName: unknown
           servicePort: unknown
-  - host: rsync.common03.alps.sjs.ted
+  - host: rsync.common02.alps.tc.ted
     http:
       paths:
       - path: /unknown
