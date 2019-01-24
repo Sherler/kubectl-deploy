@@ -143,6 +143,27 @@ spec:
         backend:
           serviceName: unknown
           servicePort: unknown
+  - host: rsync.common01.alps.sjs.ted
+    http:
+      paths:
+      - path: /unknown
+        backend:
+          serviceName: unknown
+          servicePort: unknown
+  - host: rsync.common02.alps.sjs.ted
+    http:
+      paths:
+      - path: /unknown
+        backend:
+          serviceName: unknown
+          servicePort: unknown
+  - host: rsync.common03.alps.sjs.ted
+    http:
+      paths:
+      - path: /unknown
+        backend:
+          serviceName: unknown
+          servicePort: unknown
 '''
 #生成ingress部署配置
 def as_ingress(data, path, stage='test'):
@@ -151,10 +172,11 @@ def as_ingress(data, path, stage='test'):
     ingress['metadata']['name'] = data['projectName']+"-"+path.replace("_", "-")+"-ingress"
     ingress['metadata']['namespace'] = namespace_by_stage(stage)
     ingress['metadata']['annotations']['nginx.ingress.kubernetes.io/app-root'] = '/'+path
-            
-    ingress['spec']['rules'][0]['http']['paths'][0]['path'] = '/'+path
-    ingress['spec']['rules'][0]['http']['paths'][0]['backend']['serviceName'] = data['projectName']+'-'+stage
-    ingress['spec']['rules'][0]['http']['paths'][0]['backend']['servicePort'] = data['serviceSpec']['ports'][0]['port']
+    
+    for rule in ingress['spec']['rules']:
+        rule['http']['paths'][0]['path'] = '/'+path
+        rule['http']['paths'][0]['backend']['serviceName'] = data['projectName']+'-'+stage
+        rule['http']['paths'][0]['backend']['servicePort'] = data['serviceSpec']['ports'][0]['port']
 
     return ingress
 
