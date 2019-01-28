@@ -143,27 +143,6 @@ spec:
         backend:
           serviceName: unknown
           servicePort: unknown
-  - host: rsync.common01.alps.sjs.ted
-    http:
-      paths:
-      - path: /unknown
-        backend:
-          serviceName: unknown
-          servicePort: unknown
-  - host: rsync.common03.alps.tc.ted
-    http:
-      paths:
-      - path: /unknown
-        backend:
-          serviceName: unknown
-          servicePort: unknown
-  - host: rsync.common02.alps.tc.ted
-    http:
-      paths:
-      - path: /unknown
-        backend:
-          serviceName: unknown
-          servicePort: unknown
 '''
 #生成ingress部署配置
 def as_ingress(data, path, stage='test'):
