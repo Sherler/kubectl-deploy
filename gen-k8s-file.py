@@ -39,7 +39,7 @@ def name_by_stage(data, stage):
     elif stage == "grey":
         return data['projectName']+"-grey"
     else:
-        return data['projectName']+"-"+branch+"-"+data.get('namespace',default_values['namespace'])+"-"+stage
+        return data['projectName']+"-"+data.get('namespace',default_values['namespace'])+"-"+stage
 
 def path_by_stage(data, branch, stage):
     #预设前提：线上灰度部署过程中,projectname.namespace唯一，测试部署中，projectname.namespace唯一
@@ -172,9 +172,9 @@ spec:
           servicePort: unknown
 '''
 #生成ingress部署配置
-def as_ingress(data, branch, stage='test'):
+def as_ingress(data, path, stage='test'):
     ingress = load(basic_ingress_str)#基本结构
-    path = path_by_stage(data,branch,stage)
+    # path = path_by_stage(data,branch,stage)
     ingress['metadata']['name'] = name_by_stage(data,stage)+"-ingress"
     ingress['metadata']['namespace'] = namespace_by_stage(data,stage)
     ingress['metadata']['annotations']['nginx.ingress.kubernetes.io/app-root'] = '/'+path
@@ -265,7 +265,7 @@ if __name__ == '__main__':
 
     #分支名称
     parser.add_argument(
-	'-b','--branch', 
+	'-p','--path', 
 	nargs='?',  
 	help = 'the service project branch as url or path ')
 
@@ -283,7 +283,7 @@ if __name__ == '__main__':
     
     args = vars(parser.parse_args())
     config_file = args['file']
-    branch = args['branch']
+    path = args['path']
     stage = args['stage']
     output = args['output']
     image = args['image']
@@ -297,7 +297,7 @@ if __name__ == '__main__':
         yamls.append(as_service(config,stage))
 
     if args['n'] :
-        yamls.append(as_ingress(config,branch,stage))
+        yamls.append(as_ingress(config,path,stage))
 
     if args['c'] :
         yamls.append(as_configmap(config,stage))
