@@ -181,7 +181,7 @@ def as_ingress(data, path, stage='test'):
     
     for rule in ingress['spec']['rules']:
         rule['http']['paths'][0]['path'] = '/'+path
-        rule['http']['paths'][0]['backend']['serviceName'] = data['projectName']+'-'+stage
+        rule['http']['paths'][0]['backend']['serviceName'] = name_by_stage(data,stage)
         rule['http']['paths'][0]['backend']['servicePort'] = data['serviceSpec']['ports'][0]['port']
     if stage == "production":
         rule = {
