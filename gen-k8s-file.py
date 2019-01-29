@@ -116,7 +116,7 @@ def as_deploy(data,image,stage='test'):
     deploy['spec']['selector']['matchLabels']['app'] = data['projectName']
     deploy['spec']['selector']['matchLabels']['ns'] = data.get('namespace',default_values['namespace'])
     deploy['spec']['selector']['matchLabels']['stage'] = stage
-    deploy['spec']['template']['metadata']['labels']['app'] = data['projectName']+"-"+data.get('namespace','wenwen')
+    deploy['spec']['template']['metadata']['labels']['app'] = data['projectName']
     deploy['spec']['template']['metadata']['labels']['ns'] = data.get('namespace',default_values['namespace'])
     deploy['spec']['template']['metadata']['labels']['stage'] = stage
  
@@ -146,7 +146,7 @@ def as_deploy(data,image,stage='test'):
     for container in deploy['spec']['template']['spec']['containers']:
         if container['name'] == data['projectName']:
             container['image'] = image
-            container['name'] = data['projectName']+"."+ data.get('namespace',default_values['namespace'])
+            container['name'] = data['projectName']+"-"+ data.get('namespace',default_values['namespace'])
 
     return deploy
 
