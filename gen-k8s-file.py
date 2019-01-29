@@ -269,12 +269,6 @@ if __name__ == '__main__':
 	nargs='?',  
 	help = 'the service project branch as url or path ')
 
-    #部署阶段
-    parser.add_argument(
-	'-s','--stage', 
-	nargs='?',  
-	help = 'the service project stage as url or path ')
-    
     #输出文件，默认输出到stdout
     parser.add_argument(
 	'-o','--output', 
