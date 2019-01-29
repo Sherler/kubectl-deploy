@@ -189,7 +189,7 @@ def as_ingress(data, path, stage='test'):
             'http':{
                 "paths":[
                     {
-                        "path":"/"
+                        "path":"/",
                         "backend":{
 
                         }
