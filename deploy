@@ -25,7 +25,7 @@ case $key in
     shift # past value
     ;;
     -p|--path)
-    PATH="$2"
+    SERVICE_PATH="$2"
     shift
     shift
     ;;
@@ -35,13 +35,13 @@ done
 if [ "$ACTION" == "start" ];
 then
   kubectl apply -f - <<EOF
-$(python /bin/gen-k8s-file.py $CONFIGFILE -s ${STAGE} -i ${IMAGE} -p $PATH -dvnc)
+$(python /bin/gen-k8s-file.py $CONFIGFILE -s ${STAGE} -i ${IMAGE} -p $SERVICE_PATH -dvnc)
 EOF
 fi
 
 if [ "$ACTION" == "stop" ];
 then
   kubectl delete -f - <<EOF
-$(python /bin/gen-k8s-file.py $CONFIGFILE -s ${STAGE} -i ${IMAGE} -p $PATH -dn )
+$(python /bin/gen-k8s-file.py $CONFIGFILE -s ${STAGE} -i ${IMAGE} -p $SERVICE_PATH -dn )
 EOF
 fi
